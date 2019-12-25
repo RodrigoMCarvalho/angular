@@ -1,0 +1,18 @@
+<!--<div>
+  Student: {{ student.name }}
+  <div [hidden]="!student.isJedi">
+    Jedi Temple: {{ student.temple }}
+  </div>
+</div>   HIDDEN controla a visibilidade através de CSS  -->
+
+<div *ngIf="student">  <!-- ? opcional caso não exista o estudante-->
+  Student: <a href="#" (click)="clicked()"> {{ student?.name }}</a>
+  <div *ngIf="student?.isJedi">
+    Jedi Temple: {{ student?.temple }} <button (click)="descricao.focus()">Focus!</button><br>
+    <textarea #descricao></textarea>
+  </div>
+</div>
+
+<p *ngIf="!student">
+  Sem dados do estudante para exibir!
+</p>
