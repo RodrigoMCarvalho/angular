@@ -20,29 +20,23 @@
             <div class="col-xs-12">
               <p class="lead">Endereço de Entrega:</p>
             </div>
+
             <div class="col-sm-6 col-xs-12">
-              <div class="form-group" [class.has-success]="iptAddress.valid && (iptAddress.dirty || iptAddress.touched)"
-                                      [class.has-error]="!iptAddress.valid && (iptAddress.dirty || iptAddress.touched)">
-                <label class="control-label sr-only" ><i class="fa fa-check"></i> Endereço</label>
-                <input type="text" name="address" ngModel required autocomplete="off" minlength="5" #iptAddress="ngModel" class="form-control" id="inputSuccess" placeholder="Endereço">
-                <span class="help-block" *ngIf="iptAddress.valid && (iptAddress.dirty || iptAddress.touched)"><i class="fa fa-check"></i> Ok</span>
-                <span class="help-block" *ngIf="!iptAddress.valid && (iptAddress.dirty || iptAddress.touched)"><i class="fa fa-remove"></i>Campo obrigatório</span>
-              </div>
+              <mt-input-container errorMessage="Campo obrigatório" label="Endereço">
+                <input class="form-control" name="address" ngModel required minlength="5" autocomplete="off" placeholder="Endereço">
+              </mt-input-container>
             </div>
 
             <div class="col-sm-2 col-xs-6">
-              <div class="form-group" [class.has-success]="iptNumber.valid && (iptNumber.dirty || iptNumber.touched)"
-                                      [class.has-error]="!iptNumber.valid && (iptNumber.dirty || iptNumber.touched)">
-                <label class="control-label sr-only" ><i class="fa fa-check"></i> Número</label>
-                <input type="text" name="number" ngModel required autocomplete="off" #iptNumber="ngModel" class="form-control" placeholder="Número">
-                <span class="help-block" *ngIf="iptNumber.valid && (iptNumber.dirty || iptNumber.touched)"><i class="fa fa-check"></i> Ok</span>
-                <span class="help-block" *ngIf="!iptNumber.valid && (iptNumber.dirty || iptNumber.touched)"><i class="fa fa-remove"></i>Campo obrigatório</span>
-              </div>
+              <mt-input-container errorMessage="Campo obrigatório" label="Número">
+                <input class="form-control" name="number" ngModel required autocomplete="off"  placeholder="Número">
+              </mt-input-container>
             </div>
 
             <div class="col-sm-4 col-xs-6">
-                <label class="control-label sr-only"><i class="fa fa-check"></i> Complemento</label>
+              <mt-input-container>
                 <input type="text" name="optional" ngModel class="form-control"  placeholder="Complemento">
+              </mt-input-container>
             </div>
 
             <!-- /.col -->
