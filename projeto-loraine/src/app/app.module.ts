@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { MeuPrimeiroComponent } from './meu-primeiro/meu-primeiro.component';
 import { MeuSegundoComponent } from './meu-segundo/meu-segundo.component';
 import { CursosModule } from './cursos/cursos.module';
+import { CicloComponent } from './ciclo/ciclo.component';
+import { OutputPropertyComponent } from './output-property/output-property.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MeuPrimeiroComponent,
-    MeuSegundoComponent
+    MeuSegundoComponent,
+    CicloComponent,
+    OutputPropertyComponent
   ],
   imports: [
     BrowserModule,

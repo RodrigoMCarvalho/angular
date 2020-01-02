@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'projeto-angular';
+
+  valor = 5;
+
+  mudarValor() {
+    this.valor++;
+  }
 }
