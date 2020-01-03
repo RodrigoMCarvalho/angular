@@ -370,5 +370,45 @@
       "restaurantId": "tasty-treats"
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "address": "nm,n,n",
+      "number": "12",
+      "optionalAddress": "",
+      "paymentOption": "DIN",
+      "orderItems": [
+        {
+          "quantity": 2,
+          "menuId": "chocpop"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "address": "nm,n,n",
+      "number": "12",
+      "optionalAddress": "",
+      "paymentOption": "DIN",
+      "orderItems": [
+        {
+          "quantity": 2,
+          "menuId": "chocpop"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "address": "Rua AAA",
+      "number": "45",
+      "optionalAddress": "",
+      "paymentOption": "DIN",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "espreso"
+        }
+      ],
+      "id": 3
+    }
+  ]
 }

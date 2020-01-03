@@ -8,6 +8,7 @@ import { MeuSegundoComponent } from './meu-segundo/meu-segundo.component';
 import { CursosModule } from './cursos/cursos.module';
 import { CicloComponent } from './ciclo/ciclo.component';
 import { OutputPropertyComponent } from './output-property/output-property.component';
+import { InputPropertyComponent } from './input-property/input-property.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { OutputPropertyComponent } from './output-property/output-property.compo
     MeuPrimeiroComponent,
     MeuSegundoComponent,
     CicloComponent,
-    OutputPropertyComponent
+    OutputPropertyComponent,
+    InputPropertyComponent
   ],
   imports: [
     BrowserModule,

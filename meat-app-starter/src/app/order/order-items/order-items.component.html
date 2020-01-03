@@ -1,6 +1,8 @@
-<div class="col-xs-12" *ngIf="!itens">
+<div class="col-xs-12" *ngIf="!items.length">
   <p>Não há itens no seu carrinho. Que tal começar por <a [routerLink]="['/restaurants']">aqui</a>?</p>
 </div>
+
+<!-- {{ items | json }} -->
 
 <div class="col-xs-12 table-responsive">
 
