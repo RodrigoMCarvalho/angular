@@ -473,6 +473,22 @@
         }
       ],
       "id": 7
+    },
+    {
+      "name": "Rodrigo",
+      "email": "rodrigo@gmail.com",
+      "emailConfirmation": "rodrigo@gmail.com",
+      "address": "Rua AAA",
+      "number": "12",
+      "optionalAddress": "casa 5",
+      "paymentOption": "DIN",
+      "orderItems": [
+        {
+          "quantity": 1,
+          "menuId": "sunday"
+        }
+      ],
+      "id": 8
     }
   ]
 }
