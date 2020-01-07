@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { RouterModule, PreloadingStrategy, PreloadAllModules } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, PreloadAllModules } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ROUTES } from './app.routes';
 
@@ -37,6 +37,7 @@ import { SharedModule } from './shared/shared.module';
 
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     SharedModule.forRoot(), //FormsModule e ReactiveFormsModule são importados juntos
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules}) //pré-carregamento de todos os módules
