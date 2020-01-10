@@ -16,9 +16,9 @@ export class RestaurantsService {
   constructor(private http: Http) { }
 
   // Método que retorna uma lista de restaurantes
-  restaurants(): Observable<Restaurant[]> {
-    return this.http.get(`${MEAT_API}/restaurants`)
-          .map(response => response.json())
+  restaurants(search?: string): Observable<Restaurant[]> {
+    return this.http.get(`${MEAT_API}/restaurants`, {params: { q: search }}) // q = busca genérica em todos os atributos
+          .map(response => response.json())                                  // não somente no nome
           .catch(ErrorHandler.handleError);
   }
 
