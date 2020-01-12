@@ -59,6 +59,11 @@
       "imagePath": "assets/img/restaurants/tasty.png",
       "about": "A doceria com mais tradição da cidade",
       "hours": "Funciona de segunda à sábado, de 8h às 23h"
+    },
+    {
+      "email": "admin@email.com",
+      "password": "123",
+      "id": "F4lSpDmQ"
     }
   ],
   "menu": [
