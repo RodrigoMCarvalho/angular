@@ -21,7 +21,8 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
-import { LoginComponent } from './security/src/app/security/login/login/login.component';
+import { LoginComponent } from './security/login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { LoginComponent } from './security/src/app/security/login/login/login.co
   ],
 
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy} ,
+   // { provide: LocationStrategy, useClass: HashLocationStrategy} ,
     { provide: LOCALE_ID, useValue: 'pt-BR'}
   ],
 
