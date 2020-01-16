@@ -20,8 +20,8 @@ export const ROUTES: Routes = [       // rotas mais genéricas deverão ficar ma
       {path :  'reviews', component: ReviewsComponent}
     ]},
   {path: 'restaurants', component: RestaurantsComponent},
-  {path: 'order', loadChildren : './order/order.module#OrderModule',
-    canLoad: [LoggedInGuard] },
+  {path: 'order', loadChildren : './order/order.module#OrderModule',  //carregamento lazy
+    canLoad: [LoggedInGuard], canActivate: [LoggedInGuard] },
   {path: 'about', loadChildren: './about/about.module#AboutModule'},  //carregamento lazy
   {path: 'order-summary', component: OrderSummaryComponent},
   {path: '**', component: NotFoundComponent}
