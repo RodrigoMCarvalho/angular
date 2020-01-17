@@ -6,6 +6,8 @@ import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
+import 'rxjs/add/operator/do'
+
 @Component({
   selector: 'mt-order',
   templateUrl: './order.component.html'
@@ -18,6 +20,8 @@ export class OrderComponent implements OnInit {
   orderForm: FormGroup;
 
   delivery: number = 8;
+
+  orderId: string;
 
   paymentOptions: RadioOption[] = [
     {label: 'Dinheiro', value: 'DIN'},
@@ -41,7 +45,8 @@ export class OrderComponent implements OnInit {
     }, { validator: OrderComponent.equalsTo })
   }
 
-  //Método para dizer se os emails digitados são iguais
+  // Método para dizer se os emails digitados são iguais
+  // tslint:disable-next-line: member-ordering
   static equalsTo(group: AbstractControl): { [key: string]: boolean} {
     const email = group.get('email');
     const emailConfirmation = group.get('emailConfirmation');
@@ -79,11 +84,15 @@ export class OrderComponent implements OnInit {
           .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id));
 
     this.orderService.checkOrder(order)
+          .do((orderId: string) => { this.orderId = orderId })
           .subscribe( (orderId: string) => {
             this.router.navigate(['/order-summary']);
             console.log(`Compra realizada: ${orderId}`)
             this.orderService.clear()
           });
-          console.log(order);
+  }
+
+  isOrderCompleted() {
+    return this.orderId !== undefined;
   }
 }

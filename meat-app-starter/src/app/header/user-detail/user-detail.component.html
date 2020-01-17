@@ -2,7 +2,7 @@
   <ul class="nav navbar-nav">
     <li class="user user-menu">
       <span *ngIf="isLoggedIn(); else notLoggedIn">
-        Olá, {{ user.name }} | <a (click)="logout()">Sair</a>
+        Olá, {{ user().name }} | <a (click)="logout()">Sair</a>
       </span>  <!--se estiver logado mostra o span, senão direciona para o template conforme variável notLoggedIn-->
       <ng-template #notLoggedIn>
         <a (click)="login()">Entrar</a>
