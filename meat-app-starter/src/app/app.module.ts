@@ -48,8 +48,8 @@ import { AppErrorHandler } from './app.error-handler';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SharedModule.forRoot(), //FormsModule e ReactiveFormsModule são importados juntos
-    RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules}) //pré-carregamento de todos os módules
+    SharedModule.forRoot(), // FormsModule e ReactiveFormsModule são importados juntos
+    RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules}) // pré-carregamento de todos os módules
   ],
 
   providers: [

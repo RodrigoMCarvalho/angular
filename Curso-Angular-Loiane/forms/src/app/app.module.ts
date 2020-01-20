@@ -3,18 +3,23 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TemplateFormComponent } from './template-form/template-form.component';
-import { DataFormComponent } from './data-form/data-form.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { DataFormModule } from './data-form/data-form.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateFormComponent,
-    DataFormComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DataFormModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

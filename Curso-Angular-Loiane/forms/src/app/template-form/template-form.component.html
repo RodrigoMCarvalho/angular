@@ -1,1 +1,68 @@
-<p>template-form works!</p>
+<form class="form-horizontal">
+
+  <div class="col-sm-12">
+    <label >Nome</label>
+  </div>
+  <div class="col-sm-12">
+    <div class="form-group">
+      <input type="text" class="form-control"  placeholder="Nome" >
+    </div>
+  </div>
+
+  <div class="col-sm-12">
+    <label >Email address</label>
+  </div>
+  <div class="col-sm-12">
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="Enter email">
+    </div>
+  </div>
+
+  <div class="col-sm-12">
+    <div class="form-group row">
+      <div class="col-md-3">
+        <label for="cep" class="control-label">CEP</label>
+        <input type="text" class="form-control" id="cep" name="cep">
+      </div>
+      <div class="col-md-3">
+        <label for="numero" class="control-label">Número</label>
+        <input type="text" class="form-control" id="numero" name="numero">
+      </div>
+      <div class="col-md-6">
+        <label for="complemento" class="control-label">Complemento</label>
+        <input type="text" class="form-control" id="complemento" name="complemento">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12">
+    <label >Rua</label>
+  </div>
+  <div class="col-sm-12">
+    <div class="form-group">
+      <input type="text" class="form-control"  placeholder="Rua">
+    </div>
+  </div>
+
+  <div class="col-sm-12">
+    <div class="form-group row">
+      <div class="col-md-5">
+        <label for="bairro" class="control-label">Bairro</label>
+        <input type="text" class="form-control" id="bairro" name="bairro">
+      </div>
+      <div class="col-md-4">
+        <label for="cidade" class="control-label">Cidade</label>
+        <input type="text" class="form-control" id="cidade" name="cidade">
+      </div>
+      <div class="col-md-3">
+        <label for="estado" class="control-label">Estado</label>
+        <input type="text" class="form-control" id="estado" name="estado">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12">
+    <button type="submit" class="btn btn-primary ">Submit</button>
+    <app-form-debug></app-form-debug>
+  </div>
+</form>
