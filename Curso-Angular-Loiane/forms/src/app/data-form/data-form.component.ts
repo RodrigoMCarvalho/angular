@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ConsultaCepService } from './services/consulta-cep.service';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs/internal/observable/of';
+import { DropdownService } from '../shared/services/dropdown.service';
+import { Estados } from '../shared/models/estados.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-data-form',
@@ -12,10 +15,13 @@ import { of } from 'rxjs/internal/observable/of';
 export class DataFormComponent implements OnInit {
 
   formulario: FormGroup;
+  // estados: Estados[];
+  estados: Observable<Estados[]>;
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient) { }
+    private cepService: ConsultaCepService,
+    private dropdownService: DropdownService) { }
 
   ngOnInit() {
     this.formulario = this.fb.group({
@@ -33,8 +39,11 @@ export class DataFormComponent implements OnInit {
       })
 
     });
+    /*this.dropdownService.getEstados().subscribe(dados => {
+      this.estados = dados; console.log(dados);
+    });*/
+    this.estados = this.dropdownService.getEstados();
   }
-
   reset() {
     this.formulario.reset();
   }
@@ -57,6 +66,7 @@ export class DataFormComponent implements OnInit {
     }
   }
 
+   // Popula o formulário com os dados retornados do ViaCep
   populaDadosForm(dados) {
     this.formulario.patchValue({
       endereco: {
@@ -70,24 +80,12 @@ export class DataFormComponent implements OnInit {
   }
 
   consultaCep() {
-    let cep = this.formulario.get('endereco.cep').value;
-    // console.log(cep);
+    const cep = this.formulario.get('endereco.cep').value;
 
-    // Nova variável "cep" somente com dígitos.
-    cep = cep.replace(/\D/g, '');
-
-    // Verifica se campo cep possui valor informado.
-    if (cep !== '') {
-      // Expressão regular para validar o CEP.
-      const validacep = /^[0-9]{8}$/;
-
-      // Valida o formato do CEP.
-      if (validacep.test(cep)) {
-        this.http.get(`//viacep.com.br/ws/${cep}/json`).subscribe(dados => this.populaDadosForm(dados));
-      }
+    if (cep != null && cep !== '') {
+      this.cepService.consultaCep(cep).subscribe(dados => this.populaDadosForm(dados));
     }
-
-    return of({});
   }
+
 
 }
