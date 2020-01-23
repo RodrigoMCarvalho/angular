@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
-import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs/internal/observable/of';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { Estados } from '../shared/models/estados.model';
 import { Observable } from 'rxjs';
@@ -16,7 +14,10 @@ export class DataFormComponent implements OnInit {
 
   formulario: FormGroup;
   // estados: Estados[];
-  estados: Observable<Estados[]>;
+  estados: Observable<Estados[]>; //Para utilização do pipe async
+  cargos: any[];
+  tecnologias: any[];
+  newsletter: any[];
 
   constructor(
     private fb: FormBuilder,
@@ -36,13 +37,18 @@ export class DataFormComponent implements OnInit {
         bairro:      [null, Validators.required],
         cidade:      [null, Validators.required],
         estado:      [null, Validators.required]
-      })
-
+      }),
+        cargo:       [null],
+        tecnologias: [null],
+        newsletter:  ['s']
     });
     /*this.dropdownService.getEstados().subscribe(dados => {
       this.estados = dados; console.log(dados);
     });*/
     this.estados = this.dropdownService.getEstados();
+    this.cargos = this.dropdownService.getCargos();
+    this.tecnologias = this.dropdownService.getTecnologias();
+    this.newsletter = this.dropdownService.getNewsletter();
   }
   reset() {
     this.formulario.reset();
@@ -85,6 +91,19 @@ export class DataFormComponent implements OnInit {
     if (cep != null && cep !== '') {
       this.cepService.consultaCep(cep).subscribe(dados => this.populaDadosForm(dados));
     }
+  }
+
+  setarTecnologias() {
+    this.formulario.get('tecnologias').setValue(['java', 'javascritp', 'php'])
+  }
+
+  setarCargo() {
+    let cargo = {nome: 'Dev', nivel: 'Junior', desc: 'Dev Jr'};
+    this.formulario.get('cargo').setValue(cargo);
+  }
+
+  compararCargos(ob1, ob2) {
+    return ob1 && ob2 ? (ob1.nome === ob2.nome && ob1.nivel === ob2.nivel) : ob1 === ob2;
   }
 
 
