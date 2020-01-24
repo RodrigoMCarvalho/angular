@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { Estados } from '../shared/models/estados.model';
@@ -18,6 +18,8 @@ export class DataFormComponent implements OnInit {
   cargos: any[];
   tecnologias: any[];
   newsletter: any[];
+  frameworks: string[] = ['Angular', 'React', 'Vue', 'Sencha'];
+
 
   constructor(
     private fb: FormBuilder,
@@ -40,7 +42,9 @@ export class DataFormComponent implements OnInit {
       }),
         cargo:       [null],
         tecnologias: [null],
-        newsletter:  ['s']
+        newsletter:  ['s'],
+        termos:      [null, Validators.pattern('true')],
+        frameworks:  this.buildFrameworks()
     });
     /*this.dropdownService.getEstados().subscribe(dados => {
       this.estados = dados; console.log(dados);
@@ -55,7 +59,8 @@ export class DataFormComponent implements OnInit {
   }
 
   verificaValidTouched(campo: string) {
-    return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+    return !this.formulario.get(campo).valid &&
+            (this.formulario.get(campo).touched || this.formulario.get(campo).dirty);
   }
 
   verificaEmailInvalido() {
@@ -106,5 +111,15 @@ export class DataFormComponent implements OnInit {
     return ob1 && ob2 ? (ob1.nome === ob2.nome && ob1.nivel === ob2.nivel) : ob1 === ob2;
   }
 
+  buildFrameworks() {
+    const values = this.frameworks.map(v => new FormControl(false));
+    return this.fb.array(values);
+    /*return [
+      new FormControl(false),
+      new FormControl(false),
+      new FormControl(false),
+      new FormControl(false)
+    ]*/
+  }
 
 }
