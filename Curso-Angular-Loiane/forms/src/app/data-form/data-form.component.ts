@@ -29,8 +29,9 @@ export class DataFormComponent implements OnInit {
 
   ngOnInit() {
     this.formulario = this.fb.group({
-      nome:   [null, [Validators.required, Validators.minLength(3)]],
-      email:  [null, [Validators.required, Validators.email]],
+      nome:            [null, [Validators.required, Validators.minLength(3)]],
+      email:           [null, [Validators.required, Validators.email]],
+      confirmarEmail:  [null, [FormValidations.equalsTo('email')]],
 
       endereco : this.fb.group({
         rua:         [null, Validators.required],
@@ -65,7 +66,7 @@ export class DataFormComponent implements OnInit {
   }
 
   verificaRequired(campo: string) {
-    return !this.formulario.get(campo).valid &&
+    return this.formulario.get(campo).hasError('required') &&
             (this.formulario.get(campo).touched || this.formulario.get(campo).dirty);
   }
 
