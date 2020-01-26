@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { Estados } from '../shared/models/estados.model';
 import { Observable } from 'rxjs';
+import { FormValidations } from '../shared/form-validations';
 
 @Component({
   selector: 'app-data-form',
@@ -33,7 +34,7 @@ export class DataFormComponent implements OnInit {
 
       endereco : this.fb.group({
         rua:         [null, Validators.required],
-        cep:         [null, Validators.required],
+        cep:         [null, [Validators.required, FormValidations.cepValidator]],
         numero:      [null, Validators.required],
         complemento: [null],
         bairro:      [null, Validators.required],
@@ -59,6 +60,11 @@ export class DataFormComponent implements OnInit {
   }
 
   verificaValidTouched(campo: string) {
+    return !this.formulario.get(campo).valid &&
+            (this.formulario.get(campo).touched || this.formulario.get(campo).dirty);
+  }
+
+  verificaRequired(campo: string) {
     return !this.formulario.get(campo).valid &&
             (this.formulario.get(campo).touched || this.formulario.get(campo).dirty);
   }
@@ -113,7 +119,7 @@ export class DataFormComponent implements OnInit {
 
   buildFrameworks() {
     const values = this.frameworks.map(v => new FormControl(false));
-    return this.fb.array(values);
+    return this.fb.array(values, FormValidations.requiredMinCheckbox(1));
     /*return [
       new FormControl(false),
       new FormControl(false),
@@ -122,4 +128,18 @@ export class DataFormComponent implements OnInit {
     ]*/
   }
 
-}
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
