@@ -5,6 +5,8 @@ import { DropdownService } from '../shared/services/dropdown.service';
 import { Estados } from '../shared/models/estados.model';
 import { Observable } from 'rxjs';
 import { FormValidations } from '../shared/form-validations';
+import { VerificaEmailService } from '../shared/services/verifica-email.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-form',
@@ -25,12 +27,13 @@ export class DataFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private cepService: ConsultaCepService,
-    private dropdownService: DropdownService) { }
+    private dropdownService: DropdownService,
+    private verificaEmailService: VerificaEmailService) { }
 
   ngOnInit() {
     this.formulario = this.fb.group({
       nome:            [null, [Validators.required, Validators.minLength(3)]],
-      email:           [null, [Validators.required, Validators.email]],
+      email:           [null, [Validators.required, Validators.email], [this.validarEmail.bind(this)]],
       confirmarEmail:  [null, [FormValidations.equalsTo('email')]],
 
       endereco : this.fb.group({
@@ -55,6 +58,7 @@ export class DataFormComponent implements OnInit {
     this.cargos = this.dropdownService.getCargos();
     this.tecnologias = this.dropdownService.getTecnologias();
     this.newsletter = this.dropdownService.getNewsletter();
+    //this.verificaEmailService.verificarEmail('email1@email.com').subscribe();
   }
   reset() {
     this.formulario.reset();
@@ -127,7 +131,12 @@ export class DataFormComponent implements OnInit {
       new FormControl(false),
       new FormControl(false)
     ]*/
-  }
+    }
+
+    validarEmail(formControl: FormControl) {
+      return this.verificaEmailService.verificarEmail(formControl.value)
+          .pipe(map(emailExiste => emailExiste ? {emailInvalido: true}: null ));
+    }
 
 
   }

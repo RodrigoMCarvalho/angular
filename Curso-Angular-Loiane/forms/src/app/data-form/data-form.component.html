@@ -6,9 +6,9 @@
     </div>
     <div class="col-sm-12">
       <input type="text" id="nome" class="form-control"  placeholder="Nome" formControlName="nome" autocomplete="off">
-      <app-campo-control-error
-        [mostrarErro]="verificaValidTouched('nome')" msgErro="Nome é obrigatório">
-      </app-campo-control-error>
+      <app-error-msg
+        [control]="formulario.get('nome')" label="Nome">
+      </app-error-msg>
     </div>
   </div>
 
@@ -23,6 +23,15 @@
       </app-campo-control-error>
       <app-campo-control-error
         [mostrarErro]="verificaEmailInvalido()" msgErro="Email inválido.">
+      </app-campo-control-error>
+      <app-campo-control-error
+        [mostrarErro]="formulario.get('email').status === 'PENDING'" msgErro="Validando email...">
+      </app-campo-control-error>
+      <app-campo-control-error
+        [mostrarErro]="formulario.get('email').status === 'VALID'" msgErro="Email válido!">
+      </app-campo-control-error>
+      <app-campo-control-error
+        [mostrarErro]="formulario.get('email').hasError('emailInvalido')" msgErro="Email já cadastrado!">
       </app-campo-control-error>
     </div>
   </div>
