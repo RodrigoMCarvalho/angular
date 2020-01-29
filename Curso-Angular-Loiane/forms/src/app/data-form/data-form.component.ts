@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@ang
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { Estados } from '../shared/models/estados.model';
-import { Observable } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 import { FormValidations } from '../shared/form-validations';
 import { VerificaEmailService } from '../shared/services/verifica-email.service';
-import { map } from 'rxjs/operators';
+import { map, tap, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-form',
@@ -59,7 +59,19 @@ export class DataFormComponent implements OnInit {
     this.tecnologias = this.dropdownService.getTecnologias();
     this.newsletter = this.dropdownService.getNewsletter();
     //this.verificaEmailService.verificarEmail('email1@email.com').subscribe();
-  }
+
+    this.formulario.get('endereco.cep').statusChanges
+      .pipe(
+        distinctUntilChanged(),
+        tap(value => console.log('CEP: ' + value)),
+        switchMap(status => status === 'VALID' ?
+          this.cepService.consultaCep(this.formulario.get('endereco.cep').value)
+          : empty()
+        )
+      )
+      .subscribe(dados => dados ? this.populaDadosForm(dados) : {}) //se retornar valor do switchMap, popula os dados
+  };
+
   reset() {
     this.formulario.reset();
   }
@@ -101,13 +113,13 @@ export class DataFormComponent implements OnInit {
     })
   }
 
-  consultaCep() {
+  /*consultaCep() {
     const cep = this.formulario.get('endereco.cep').value;
 
     if (cep != null && cep !== '') {
       this.cepService.consultaCep(cep).subscribe(dados => this.populaDadosForm(dados));
     }
-  }
+  }*/
 
   setarTecnologias() {
     this.formulario.get('tecnologias').setValue(['java', 'javascritp', 'php'])

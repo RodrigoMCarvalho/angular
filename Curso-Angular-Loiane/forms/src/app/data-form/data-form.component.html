@@ -65,10 +65,10 @@
     <div class="col-sm-12">
       <div class="form-group row">
 
+        <!--(blur)="consultaCep()"-->
         <div class="col-md-3">
           <label for="cep" class="control-label">CEP</label>
-          <input type="text" class="form-control" id="cep" name="cep" formControlName="cep"
-          (blur)="consultaCep()">
+          <input type="text" class="form-control" id="cep" name="cep" formControlName="cep">
           <app-campo-control-error
             [mostrarErro]="verificaRequired('endereco.cep')" msgErro="CEP é obrigatório">
           </app-campo-control-error>
@@ -165,8 +165,10 @@
       <div class="col-md-3"  [ngClass]="aplicaCssErro('frameworks')">
         <label for="frameworks">Frameworks</label>
         <div id="frameworks" class="row">
-          <div class="checkbox" class="col-sm-4" formArrayName="frameworks"
-              *ngFor="let item of formulario.get('frameworks').controls; let i = index">
+          <!--div class="checkbox" class="col-sm-4" formArrayName="frameworks"
+              *ngFor="let item of formulario.get('frameworks').controls; let i = index"-->
+              <div class="checkbox" class="col-sm-4" formArrayName="frameworks"
+              *ngFor="let item of frameworks; let i = index">
             <label class="checkbox-inline">
               <input type="checkbox" [formControlName]="i">{{ frameworks[i] }}
             </label>
