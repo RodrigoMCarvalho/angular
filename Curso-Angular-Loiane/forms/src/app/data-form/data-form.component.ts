@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
-import { Estados } from '../shared/models/estados.model';
+import { Estado } from '../shared/models/estado.model';
 import { Observable, empty } from 'rxjs';
 import { FormValidations } from '../shared/form-validations';
 import { VerificaEmailService } from '../shared/services/verifica-email.service';
 import { map, tap, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Cidade } from '../shared/models/cidade.model';
 
 @Component({
   selector: 'app-data-form',
@@ -16,12 +17,14 @@ import { map, tap, distinctUntilChanged, switchMap } from 'rxjs/operators';
 export class DataFormComponent implements OnInit {
 
   formulario: FormGroup;
-  // estados: Estados[];
-  estados: Observable<Estados[]>; //Para utilização do pipe async
+  estados: Estado[];
+  //estados: Observable<Estado[]>; //Para utilização do pipe async
+  estados$: Observable<Estado[]>;
   cargos: any[];
   tecnologias: any[];
   newsletter: any[];
   frameworks: string[] = ['Angular', 'React', 'Vue', 'Sencha'];
+  cidades: Cidade[];
 
 
   constructor(
@@ -54,24 +57,35 @@ export class DataFormComponent implements OnInit {
     /*this.dropdownService.getEstados().subscribe(dados => {
       this.estados = dados; console.log(dados);
     });*/
-    this.estados = this.dropdownService.getEstados();
+    //this.estados = this.dropdownService.getEstados();  com pipe async
+    this.dropdownService.getEstados().subscribe(dados => this.estados = dados);
     this.cargos = this.dropdownService.getCargos();
     this.tecnologias = this.dropdownService.getTecnologias();
     this.newsletter = this.dropdownService.getNewsletter();
     //this.verificaEmailService.verificarEmail('email1@email.com').subscribe();
+    //this.dropdownService.getCidades(8).subscribe(cidade => console.log(cidade));
 
-    this.formulario.get('endereco.cep').statusChanges
+
+    this.formulario.get('endereco.estado').valueChanges
+        .pipe(
+          //tap(estado => console.log('Novo Estado:', estado))
+          map(estado => this.estados.filter(e => e.sigla === estado)),
+          map(estados => estados && estados.length > 0 ? estados[0].id : empty()),
+          switchMap(estadoId => this.dropdownService.getCidades(estadoId)),
+          tap(console.log)
+        ).subscribe(cidades => this.cidades = cidades);
+
+     /* this.formulario.get('endereco.estado').valueChanges
       .pipe(
-        distinctUntilChanged(),
-        tap(value => console.log('CEP: ' + value)),
-        switchMap(status => status === 'VALID' ?
-          this.cepService.consultaCep(this.formulario.get('endereco.cep').value)
-          : empty()
-        )
-      )
-      .subscribe(dados => dados ? this.populaDadosForm(dados) : {}) //se retornar valor do switchMap, popula os dados
-  };
-
+        switchMap(sigla => this.estados$.pipe(
+          map(estados => estados.filter(estado => estado.sigla === sigla)),
+          map(estados => estados[0].id),
+          switchMap(id => this.dropdownService.getCidades(id).pipe(
+            map((cidades: Cidade[]) => this.cidades = cidades)
+          ))
+        )),
+      ).subscribe();*/
+  }
   reset() {
     this.formulario.reset();
   }
