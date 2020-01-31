@@ -65,6 +65,15 @@ export class DataFormComponent implements OnInit {
     //this.verificaEmailService.verificarEmail('email1@email.com').subscribe();
     //this.dropdownService.getCidades(8).subscribe(cidade => console.log(cidade));
 
+    this.formulario.get('endereco.cep').statusChanges
+        .pipe(
+          distinctUntilChanged(),
+          tap(value => console.log('Status CEP: ', value)),
+          switchMap(status => status === 'VALID' ?
+          this.cepService.consultaCep(this.formulario.get('endereco.cep').value ): empty()
+          )
+        ).subscribe(dados => dados ? this.populaDadosForm(dados): {});
+
 
     this.formulario.get('endereco.estado').valueChanges
         .pipe(
