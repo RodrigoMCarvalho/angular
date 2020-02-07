@@ -4,9 +4,8 @@ import { Curso } from 'src/app/model/curso.model';
 import { Observable, empty, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { AlertModalService } from 'src/app/service/alert-modal.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -24,7 +23,9 @@ export class CursosListaComponent implements OnInit {
 
   constructor(
       private cursosService: CursosService,
-      private alertService: AlertModalService) { }
+      private alertService: AlertModalService,
+      private router: Router,
+      private route: ActivatedRoute) { }
 
   ngOnInit() {
     //this.cursosService.list().subscribe(dados => this.cursos = dados);
@@ -43,6 +44,10 @@ export class CursosListaComponent implements OnInit {
         return empty();
       })
     )
+  }
+
+  onEdit(id) {
+    this.router.navigate(['editar', id], { relativeTo: this.route});
   }
 
   handleError() {

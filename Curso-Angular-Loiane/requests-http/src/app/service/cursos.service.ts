@@ -21,9 +21,18 @@ export class CursosService {
       );
   }
 
+  loadByID(id) {
+    return this.http.get<Curso>(`${this.API}/cursos/${id}`).pipe(take(1));
+  }
+
   create(curso) {
-    return this.http.post(`${this.API}/cursos`, curso)
-      .pipe(take(1));
+    if(curso.id === null) {
+      return this.http.post(`${this.API}/cursos`, curso)
+        .pipe(take(1));
+    } else {
+      return this.http.put(`${this.API}/cursos/${curso.id}`, curso)
+        .pipe(take(1));
+    }
   }
 
 
