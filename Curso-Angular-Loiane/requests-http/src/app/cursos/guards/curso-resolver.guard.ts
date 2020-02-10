@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Curso } from 'src/app/model/curso.model';
+import { CursosService } from 'src/app/service/cursos.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoResolverGuard implements Resolve<Curso> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Curso | Observable<Curso> | Promise<Curso> {
-    throw new Error("Method not implemented.");
+
+  constructor(private service: CursosService) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Curso> {
+     if (route.params && route.params['id']) {
+      return this.service.loadByID(route.params['id']);
+     }
+     return of ({
+       id: null,
+       nome: null
+     });
   }
 
 }

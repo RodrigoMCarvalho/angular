@@ -24,27 +24,40 @@ export class CursosFormComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    const curso = this.route.snapshot.data['curso']; //resolver
     this.form = this.fb.group({
-      id:   [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]]
+      id:   [curso.id],
+      nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]]
     })
-    this.route.params.pipe(
+
+    /*this.route.params.pipe(                     // substituido pelo resolver
       map((params: any) => params['id']),
       switchMap(id => this.service.loadByID(id))
     )
-      .subscribe(curso => this.updateForm(curso))
+      .subscribe(curso => this.updateForm(curso))*/
     }
 
   onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
-      this.service.create(this.form.value).subscribe(
-        success => {
-          this.modal.showAlertSucess('Curso criado com sucesso!');
-          this.location.back();
-        },
-        error => this.modal.showAlertDanger('Erro ao criar o curso, tente novamente.')
-      );
+      if (this.form.value.id) {
+        this.service.update(this.form.value).subscribe(
+          success => {
+            this.modal.showAlertSucess('Curso atualizado com sucesso!');
+            this.location.back();
+          },
+          error => this.modal.showAlertDanger('Erro ao atualizar o curso, tente novamente.')
+        );
+      } else {
+        this.service.create(this.form.value).subscribe(
+          success => {
+            this.modal.showAlertSucess('Curso criado com sucesso!');
+            this.location.back();
+          },
+          error => this.modal.showAlertDanger('Erro ao criar o curso, tente novamente.')
+        );
+      }
     }
   }
 
@@ -53,12 +66,12 @@ export class CursosFormComponent implements OnInit {
     this.form.reset();
   }
 
-  updateForm(curso) {
+  /*updateForm(curso) {      // substituido pelo resolver
     this.form.patchValue({
       id: curso.id,
       nome: curso.nome
     })
-  }
+  }*/
 
   hasError(field: string) {
     return this.form.get(field).errors;

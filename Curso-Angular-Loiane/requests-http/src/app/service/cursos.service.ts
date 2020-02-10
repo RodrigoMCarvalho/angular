@@ -26,13 +26,15 @@ export class CursosService {
   }
 
   create(curso) {
-    if(curso.id === null) {
-      return this.http.post(`${this.API}/cursos`, curso)
-        .pipe(take(1));
-    } else {
-      return this.http.put(`${this.API}/cursos/${curso.id}`, curso)
-        .pipe(take(1));
-    }
+      return this.http.post(`${this.API}/cursos`, curso).pipe(take(1));
+  }
+
+  update(curso) {
+    return this.http.put(`${this.API}/cursos/${curso.id}`, curso).pipe(take(1));
+  }
+
+  remove(id) {
+    return this.http.delete(`${this.API}/cursos/${id}`).pipe(take(1));
   }
 
 
