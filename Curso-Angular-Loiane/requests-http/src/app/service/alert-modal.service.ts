@@ -34,14 +34,14 @@ export class AlertModalService {
 
   showConfirm(title: string, msg: string, okTxt?: string, cancelTxt?: string) {
     const bsModalRef: BsModalRef = this.modalService.show(ConfirmModalComponent);
-    bsModalRef.content.type = title;
-    bsModalRef.content.message = msg;
+    bsModalRef.content.title = title;
+    bsModalRef.content.msg = msg;
 
     if (okTxt) {
-      bsModalRef.content.type = okTxt;
+      bsModalRef.content.okTxt = okTxt;
     }
     if (cancelTxt) {
-      bsModalRef.content.type = cancelTxt;
+      bsModalRef.content.cancelTxt = cancelTxt;
     }
   }
 }
