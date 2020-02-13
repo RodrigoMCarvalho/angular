@@ -28,7 +28,7 @@ export class CursosListaComponent implements OnInit {
   @ViewChild('deleteModal', {static: true }) deleteModal;
 
   constructor(
-      private cursosService: Curso2Service,
+      private cursosService: Curso2Service,   //usando crud genérico
       private modalService: BsModalService,
       private alertService: AlertModalService,
       private router: Router,

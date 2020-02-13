@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'cursos'},
   {path: 'cursos', loadChildren: './cursos/cursos.module#CursosModule'},
+  {path: 'upload', loadChildren: './upload-file/upload-file.module#UploadFileModule'},
   {path: 'rxjs-poc', loadChildren: './unsubscribe-rxjs/unsubscribe-rxjs.module#UnsubscribeRxjsModule'}
 ];
 
