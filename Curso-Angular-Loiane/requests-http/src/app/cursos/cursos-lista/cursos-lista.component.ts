@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AlertModalService } from 'src/app/service/alert-modal.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Curso2Service } from 'src/app/service/curso-2.service';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -27,7 +28,7 @@ export class CursosListaComponent implements OnInit {
   @ViewChild('deleteModal', {static: true }) deleteModal;
 
   constructor(
-      private cursosService: CursosService,
+      private cursosService: Curso2Service,
       private modalService: BsModalService,
       private alertService: AlertModalService,
       private router: Router,
