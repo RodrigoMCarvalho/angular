@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   API: 'http://localhost:3000',
-  API_CURSOS: 'http://localhost:3000/cursos'
+  API_CURSOS: 'http://localhost:3000/cursos',
+  BASE_URL: '/api'   //proxy
 };
 
 /*
